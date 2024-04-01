@@ -20,7 +20,7 @@ public class Categoria {
 	@Size(min = 5, max = 255, message = "Tamanho mínimo: 5, máximo: 255")
 	private String nome;
 
-	@Size(min = 5, max = 255, message = "Tamanho mínimo: 5, máximo: 255")
+	@Size(max = 255, message = "Tamanho máximo: 255")
 	private String descricao;
 
 	public Long getId() {
