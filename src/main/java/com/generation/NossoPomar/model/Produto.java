@@ -15,128 +15,109 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="tb_produto")
+@Table(name = "tb_produto")
 public class Produto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;// int, Integer, Long -> BigInt
-	
-	@NotBlank(message="O atributo Título é Obrigatório")
+	private Long id;
+
+	@NotBlank(message = "O atributo Nome é Obrigatório")
 	@Size(min = 5, max = 100, message = "Tamanho minimo: 5, maximo: 100")
 	private String nome;
-	
-	@NotNull(message="O atributo data é Obrigatório")
+
+	@NotNull(message = "O atributo Data é Obrigatório")
 	private Date validade;
-	
-	@NotBlank(message="O atributo foto é Obrigatório")
+
+	@NotBlank(message = "O atributo Foto é Obrigatório")
 	@Size(min = 2, max = 10000, message = "Tamanho minimo: 10, maximo: 10000")
 	private String foto;
-	
-	@NotBlank(message="O atributo Título é Obrigatório")
+
+	@NotBlank(message = "O atributo Descrição é Obrigatório")
 	@Size(min = 5, max = 1000, message = "Tamanho minimo: 5, maximo: 1000")
 	private String descricao;
-	
-	@NotNull(message="O atributo Texto é Obrigatório")
+
+	@NotNull(message = "O atributo Quantidade é Obrigatório")
 	private int quantidade;
-	
-	@NotNull(message="O atributo Título é Obrigatório")
+
+	@NotNull(message = "O atributo Preço é Obrigatório")
 	private Double preco;
 
-	@ManyToOne 
+	@ManyToOne
 	@JsonIgnoreProperties("produto")
 	private Usuario usuario;
-	
-	
+
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
 	public String getNome() {
 		return nome;
 	}
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
 	public Date getValidade() {
 		return validade;
 	}
-
 
 	public void setValidade(Date validade) {
 		this.validade = validade;
 	}
 
-
 	public String getFoto() {
 		return foto;
 	}
-
 
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 
-
 	public String getDescricao() {
 		return descricao;
 	}
-
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-
 	public int getQuantidade() {
 		return quantidade;
 	}
-
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
 
-
 	public Double getPreco() {
 		return preco;
 	}
-
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
 
-
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
 
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
