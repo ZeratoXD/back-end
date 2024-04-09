@@ -58,6 +58,7 @@ public class BasicSecurityConfig {
 				.csrf(csrf -> csrf.disable()).cors(withDefaults());
 
 		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/usuarios/logar").permitAll()
+				.requestMatchers("/produtos").permitAll()
 				.requestMatchers("/usuarios/cadastrar").permitAll().requestMatchers("/error/**").permitAll()
 				.requestMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated())
 				.authenticationProvider(authenticationProvider())
