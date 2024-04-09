@@ -15,19 +15,19 @@ import com.generation.NossoPomar.repository.UsuarioRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 
-		Optional<Usuario> usuario = usuarioRepository.findByUsuario(userName);
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(userEmail);
 
 		if (usuario.isPresent())
 			return new UserDetailsImpl(usuario.get());
 		else
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-			
+
 	}
 }
