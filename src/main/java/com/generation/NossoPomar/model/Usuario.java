@@ -25,14 +25,14 @@ public class Usuario {
 	private Long id;
 
 	@NotBlank(message = "O atributo Nome é Obrigatório")
-	@Size(min = 5, max = 100, message = "Tamanho minimo: 5, maximo: 100")
+	@Size(min = 3, max = 100, message = "Tamanho minimo: 5, maximo: 100")
 	private String nome;
 
 	@NotBlank(message = "O atributo Senha é Obrigatório")
 	@Size(min = 8, message = "Tamanho minimo: 8")
 	private String senha;
 
-	@NotBlank(message = "")
+	@NotBlank(message="O campo tipo do usuário é Obrigatório")
 	private String tipo;
 
 	@NotBlank(message = "O atributo Email é Obrigatório")
@@ -42,6 +42,7 @@ public class Usuario {
 
 	@Size(min = 2, max = 10000, message = "Tamanho minimo: 2, maximo: 1000")
 	private String foto;
+	
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")

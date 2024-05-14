@@ -1,5 +1,6 @@
 package com.generation.NossoPomar.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,7 +28,7 @@ public class Produto {
 	private String nome;
 
 	@NotNull(message = "O atributo Data é Obrigatório")
-	private Date validade;
+	private LocalDate validade;
 
 	@NotBlank(message = "O atributo Foto é Obrigatório")
 	@Size(min = 2, max = 10000, message = "Tamanho minimo: 10, maximo: 10000")
@@ -42,7 +43,7 @@ public class Produto {
 
 	@NotNull(message = "O atributo Preço é Obrigatório")
 	private Double preco;
-
+	
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
 	private Usuario usuario;
@@ -64,11 +65,11 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public Date getValidade() {
+	public LocalDate getValidade() {
 		return validade;
 	}
 
-	public void setValidade(Date validade) {
+	public void setValidade(LocalDate validade) {
 		this.validade = validade;
 	}
 
