@@ -19,21 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.NossoPomar.model.Categoria;
-import com.generation.NossoPomar.repository.CategoriaRepository;
+import com.generation.NossoPomar.repository.CategoryRepository;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class CategoriaController {
+public class CategoryController {
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private CategoryRepository categoryRepository;
 
 	@GetMapping
 	public ResponseEntity<List<Categoria>> getAll() {
-		return ResponseEntity.ok(categoriaRepository.findAll());
+		return ResponseEntity.ok(categoryRepository.findAll());
 	}
 
 	@GetMapping("/{id}")

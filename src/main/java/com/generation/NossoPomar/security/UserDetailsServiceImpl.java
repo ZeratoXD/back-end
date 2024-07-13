@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.NossoPomar.model.Usuario;
-import com.generation.NossoPomar.repository.UsuarioRepository;
+import com.generation.NossoPomar.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 
-		Optional<Usuario> usuario = usuarioRepository.findByEmail(userEmail);
+		Optional<Usuario> usuario = userRepository.findByEmail(userEmail);
 
 		if (usuario.isPresent())
 			return new UserDetailsImpl(usuario.get());

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.NossoPomar.model.UsuarioLogin;
 import com.generation.NossoPomar.model.Usuario;
-import com.generation.NossoPomar.repository.UsuarioRepository;
+import com.generation.NossoPomar.repository.UserRepository;
 import com.generation.NossoPomar.service.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -25,24 +25,24 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UsuarioController {
+public class UserController {
 
 	@Autowired
 	private UsuarioService usuarioService;
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UserRepository userRepository;
 
 	@GetMapping("/all")
 	public ResponseEntity<List<Usuario>> getAll() {
 
-		return ResponseEntity.ok(usuarioRepository.findAll());
+		return ResponseEntity.ok(userRepository.findAll());
 
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
-		return usuarioRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
+		return userRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build());
 	}
 

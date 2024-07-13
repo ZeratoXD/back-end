@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.generation.NossoPomar.model.Categoria;
 
-public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
+public interface CategoryRepository extends JpaRepository<Categoria, Long> {
 
 	public List<Categoria> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
 
