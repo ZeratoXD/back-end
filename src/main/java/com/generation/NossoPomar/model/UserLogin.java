@@ -1,6 +1,6 @@
 package com.generation.NossoPomar.model;
 
-public class UsuarioLogin {
+public class UserLogin {
 
 	private Long id;
 	private String nome;

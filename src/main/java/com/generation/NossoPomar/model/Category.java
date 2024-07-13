@@ -16,8 +16,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria {
+@Table(name = "tb_category")
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,22 +25,22 @@ public class Categoria {
 
 	@NotBlank(message = "O Atributo Nome é Obrigatório")
 	@Size(min = 5, max = 255, message = "Tamanho mínimo: 5, máximo: 255")
-	private String nome;
+	private String name;
 
 	@Size(max = 255, message = "Tamanho máximo: 255")
-	private String descricao;
+	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("categoria")
-	private List<Produto> produto;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("category")
+	private List<Product> product;
 	
 	
-	public List<Produto> getProduto() {
-		return produto;
+	public List<Product> getProduto() {
+		return product;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setProduct(List<Product> product) {
+		this.product = product;
 	}
 
 	public Long getId() {
@@ -51,20 +51,20 @@ public class Categoria {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String nome) {
+		this.name = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.generation.NossoPomar.model.Usuario;
+import com.generation.NossoPomar.model.User;
 import com.generation.NossoPomar.repository.UserRepository;
 
 @Service
@@ -22,10 +22,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 
-		Optional<Usuario> usuario = userRepository.findByEmail(userEmail);
+		Optional<User> user = userRepository.findByEmail(userEmail);
 
-		if (usuario.isPresent())
-			return new UserDetailsImpl(usuario.get());
+		if (user.isPresent())
+			return new UserDetailsImpl(user.get());
 		else
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
