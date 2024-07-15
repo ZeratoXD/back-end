@@ -46,7 +46,7 @@ public class UserService {
 			Optional<User> buscaUsuario = userRepository.findByEmail(user.getEmail());
 
 			if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != user.getId()))
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists!", null);
 
 			user.setSenha(criptografarSenha(user.getSenha()));
 
@@ -61,7 +61,7 @@ public class UserService {
 	public Optional<UserLogin> autenticarUsuario(Optional<UserLogin> userLogin) {
 
 		var credenciais = new UsernamePasswordAuthenticationToken(userLogin.get().getEmail(),
-				userLogin.get().getSenha());
+				userLogin.get().getPassword());
 
 		Authentication authentication = authenticationManager.authenticate(credenciais);
 
@@ -72,12 +72,12 @@ public class UserService {
 			if (user.isPresent()) {
 
 				userLogin.get().setId(user.get().getId());
-				userLogin.get().setNome(user.get().getNome());
+				userLogin.get().setName(user.get().getNome());
 				userLogin.get().setEmail(user.get().getEmail());
-				userLogin.get().setFoto(user.get().getFoto());
-				userLogin.get().setTipo(user.get().getTipo());
+				userLogin.get().setPhoto(user.get().getFoto());
+				userLogin.get().setType(user.get().getTipo());
 				userLogin.get().setToken(gerarToken(userLogin.get().getEmail()));
-				userLogin.get().setSenha("");
+				userLogin.get().setPassword("");
 
 				return userLogin;
 

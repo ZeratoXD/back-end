@@ -9,6 +9,6 @@ import com.generation.NossoPomar.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-	public List<Product> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
+	public List<Product> findAllByNomeContainingIgnoreCase(@Param("name") String name);
 
 }

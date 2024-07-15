@@ -57,9 +57,9 @@ public class BasicSecurityConfig {
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.csrf(csrf -> csrf.disable()).cors(withDefaults());
 
-		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/usuarios/logar").permitAll()
-				.requestMatchers("/produtos").permitAll()
-				.requestMatchers("/usuarios/cadastrar").permitAll().requestMatchers("/error/**").permitAll()
+		http.authorizeHttpRequests((auth) -> auth.requestMatchers("/users/login").permitAll()
+				.requestMatchers("/products").permitAll()
+				.requestMatchers("/users/register").permitAll().requestMatchers("/error/**").permitAll()
 				.requestMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated())
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).httpBasic(withDefaults());

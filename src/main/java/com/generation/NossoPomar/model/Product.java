@@ -16,36 +16,36 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_produto")
+@Table(name = "tb_product")
 public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "O atributo Nome é Obrigatório")
-	@Size(min = 5, max = 100, message = "Tamanho minimo: 5, maximo: 100")
-	private String nome;
+	@NotBlank(message = "The Name attribute is Mandatory")
+	@Size(min = 5, max = 100, message = "Minimum size: 5, maximum: 100")
+	private String name;
 
-	@NotNull(message = "O atributo Data é Obrigatório")
-	private LocalDate validade;
+	@NotNull(message = "The Date attribute is Mandatory")
+	private LocalDate validity;
 
 	@NotBlank(message = "O atributo Foto é Obrigatório")
 	@Size(min = 2, max = 10000, message = "Tamanho minimo: 10, maximo: 10000")
-	private String foto;
+	private String photo;
 
 	@NotBlank(message = "O atributo Descrição é Obrigatório")
 	@Size(min = 5, max = 1000, message = "Tamanho minimo: 5, maximo: 1000")
-	private String descricao;
+	private String description;
 
 	@NotNull(message = "O atributo Quantidade é Obrigatório")
-	private int quantidade;
+	private int quantity;
 
 	@NotNull(message = "O atributo Preço é Obrigatório")
-	private Double preco;
+	private Double price;
 	
 	@ManyToOne
-	@JsonIgnoreProperties("produto")
+	@JsonIgnoreProperties("product")
 	private User user;
 	
 
@@ -57,71 +57,71 @@ public class Product {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public LocalDate getValidade() {
-		return validade;
+	public LocalDate getValidity() {
+		return validity;
 	}
 
-	public void setValidade(LocalDate validade) {
-		this.validade = validade;
+	public void setValidity(LocalDate validity) {
+		this.validity = validity;
 	}
 
 	public String getFoto() {
-		return foto;
+		return photo;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setFoto(String photo) {
+		this.photo = photo;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public int getQuantidade() {
-		return quantidade;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public User getUsuario() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUsuario(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public Category getCategoria() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategoria(Category category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
 	@ManyToOne
-	@JsonIgnoreProperties("produto")
+	@JsonIgnoreProperties("product")
 	private Category category;
 }

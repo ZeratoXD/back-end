@@ -46,29 +46,29 @@ public class ProductController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@GetMapping("/produto/{nome}")
-	public ResponseEntity<List<Product>> getById(@PathVariable String nome) {
-		return ResponseEntity.ok(productRepository.findAllByNomeContainingIgnoreCase(nome));
+	@GetMapping("/produto/{name}")
+	public ResponseEntity<List<Product>> getById(@PathVariable String name) {
+		return ResponseEntity.ok(productRepository.findAllByNomeContainingIgnoreCase(name));
 	}
 
 	@PostMapping
 	public ResponseEntity<Product> post(@Valid @RequestBody Product product) {
-		if (categoryRepository.existsById(product.getCategoria().getId())) {
+		if (categoryRepository.existsById(product.getCategory().getId())) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(product));
 		}
 
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category não existe!", null);
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist!", null);
 	}
 
 	@PutMapping
 	public ResponseEntity<Product> put(@Valid @RequestBody Product product) {
 		if (productRepository.existsById(product.getId())) {
 
-			if (categoryRepository.existsById(product.getCategoria().getId())) {
+			if (categoryRepository.existsById(product.getCategory().getId())) {
 				return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(product));
 			}
 
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category Não Existe!", null);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist!", null);
 		}
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -78,9 +78,9 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		Optional<Product> postagem = productRepository.findById(id);
+		Optional<Product> post = productRepository.findById(id);
 
-		if (postagem.isEmpty())
+		if (post.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
 		productRepository.deleteById(id);

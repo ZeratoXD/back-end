@@ -3,12 +3,12 @@ package com.generation.NossoPomar.model;
 public class UserLogin {
 
 	private Long id;
-	private String nome;
+	private String name;
 	private String email;
-	private String senha;
-	private String foto;
+	private String password;
+	private String photo;
 	private String token;
-	private String tipo;
+	private String type;
 
 	public Long getId() {
 		return this.id;
@@ -18,12 +18,12 @@ public class UserLogin {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return this.nome;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -34,20 +34,20 @@ public class UserLogin {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return this.senha;
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String senha) {
+		this.password = senha;
 	}
 
-	public String getFoto() {
-		return this.foto;
+	public String getPhoto() {
+		return this.photo;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public String getToken() {
@@ -58,12 +58,12 @@ public class UserLogin {
 		this.token = token;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
