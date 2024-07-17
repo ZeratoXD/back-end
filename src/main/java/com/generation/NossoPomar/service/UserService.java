@@ -89,11 +89,11 @@ public class UserService {
 
 	}
 
-	private String criptografarSenha(String senha) {
+	private String criptografarSenha(String password) {
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		return encoder.encode(senha);
+		return encoder.encode(password);
 
 	}
 
