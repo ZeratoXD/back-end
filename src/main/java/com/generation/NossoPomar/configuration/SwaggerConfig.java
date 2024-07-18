@@ -35,30 +35,30 @@ public class SwaggerConfig {
 	}
 
 	@Bean
-	OpenApiCustomizer customerGlobalHeaderOpenApiCustomiser() {
-		
-		return openApi -> {
-			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations()
-					.forEach(operation -> {
-						
-						ApiResponses apiResponses = operation.getResponses();
-						
-						apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
-						apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!!"));
-						apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!!"));
-						apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
-						apiResponses.addApiResponse("401", createApiResponse("Acesso não autorizado!"));
-						apiResponses.addApiResponse("403", createApiResponse("Acesso Proibido!"));
-						apiResponses.addApiResponse("404", createApiResponse("Objeto não encontrado!"));
-						apiResponses.addApiResponse("500", createApiResponse("Erro na aplicação!"));
-				
-					}));			
-		};
-	}
-	
-	private ApiResponse createApiResponse(String message) {
+    OpenApiCustomizer customerGlobalHeaderOpenApiCustomizer() {
+        
+        return openApi -> {
+            openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations()
+                    .forEach(operation -> {
+                        
+                        ApiResponses apiResponses = operation.getResponses();
+                        
+                        apiResponses.addApiResponse("200", createApiResponse("Success!"));
+                        apiResponses.addApiResponse("201", createApiResponse("Object Persisted!"));
+                        apiResponses.addApiResponse("204", createApiResponse("Object Deleted!"));
+                        apiResponses.addApiResponse("400", createApiResponse("Bad Request!"));
+                        apiResponses.addApiResponse("401", createApiResponse("Unauthorized Access!"));
+                        apiResponses.addApiResponse("403", createApiResponse("Forbidden Access!"));
+                        apiResponses.addApiResponse("404", createApiResponse("Object Not Found!"));
+                        apiResponses.addApiResponse("500", createApiResponse("Application Error!"));
+                
+                    }));            
+        };
+    }
+    
+    private ApiResponse createApiResponse(String message) {
 
-		return new ApiResponse().description(message);
-	}
-	
+        return new ApiResponse().description(message);
+    }
+    
 }

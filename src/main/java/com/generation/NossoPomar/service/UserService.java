@@ -17,7 +17,7 @@ import com.generation.NossoPomar.repository.UsuarioRepository;
 import com.generation.NossoPomar.security.JwtService;
 
 @Service
-public class UsuarioService {
+public class UserService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;

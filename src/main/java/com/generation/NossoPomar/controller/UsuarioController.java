@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.NossoPomar.model.UsuarioLogin;
 import com.generation.NossoPomar.model.Usuario;
 import com.generation.NossoPomar.repository.UsuarioRepository;
-import com.generation.NossoPomar.service.UsuarioService;
+import com.generation.NossoPomar.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private UserService userService;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -49,7 +49,7 @@ public class UsuarioController {
 	@PostMapping("/logar")
 	public ResponseEntity<UsuarioLogin> autenticarUsuario(@RequestBody Optional<UsuarioLogin> usuarioLogin) {
 
-		return usuarioService.autenticarUsuario(usuarioLogin)
+		return userService.autenticarUsuario(usuarioLogin)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
@@ -57,7 +57,7 @@ public class UsuarioController {
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) {
 
-		return usuarioService.cadastrarUsuario(usuario)
+		return userService.cadastrarUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 
@@ -66,7 +66,7 @@ public class UsuarioController {
 	@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
 
-		return usuarioService.atualizarUsuario(usuario)
+		return userService.atualizarUsuario(usuario)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 
