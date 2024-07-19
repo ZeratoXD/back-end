@@ -23,7 +23,7 @@ import com.generation.NossoPomar.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 

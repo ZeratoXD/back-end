@@ -17,7 +17,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_usuario")
+@Table(name = "tb_user")
 public class User {
 
 	@Id
@@ -26,14 +26,14 @@ public class User {
 
 	@NotBlank(message = "O atributo Nome é Obrigatório")
 	@Size(min = 3, max = 100, message = "Tamanho minimo: 5, maximo: 100")
-	private String nome;
+	private String name;
 
 	@NotBlank(message = "O atributo Senha é Obrigatório")
 	@Size(min = 8, message = "Tamanho minimo: 8")
-	private String senha;
+	private String password;
 
 	@NotBlank(message="O campo tipo do usuário é Obrigatório")
-	private String tipo;
+	private String type;
 
 	@NotBlank(message = "O atributo Email é Obrigatório")
 	@Size(min = 10, max = 1000, message = "Tamanho minimo: 10, maximo: 1000")
@@ -41,11 +41,11 @@ public class User {
 	private String email;
 
 	@Size(min = 2, max = 10000, message = "Tamanho minimo: 2, maximo: 1000")
-	private String foto;
+	private String photo;
 	
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("usuario")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("user")
 	private List<Product> product;
 
 	public List<Product> getProduto() {
@@ -55,7 +55,6 @@ public class User {
 	public void setProduto(List<Product> product) {
 		this.product = product;
 	}
-
 	public Long getId() {
 		return id;
 	}
@@ -64,28 +63,28 @@ public class User {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getEmail() {
@@ -96,12 +95,21 @@ public class User {
 		this.email = email;
 	}
 
-	public String getFoto() {
-		return foto;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
+	public List<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
+
+	
 }

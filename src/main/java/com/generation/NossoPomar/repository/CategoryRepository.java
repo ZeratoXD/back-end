@@ -9,6 +9,6 @@ import com.generation.NossoPomar.model.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	public List<Category> findAllByNomeContainingIgnoreCase(@Param("name") String name);
+	public List<Category> findAllByNameContainingIgnoreCase(@Param("name") String name);
 
 }

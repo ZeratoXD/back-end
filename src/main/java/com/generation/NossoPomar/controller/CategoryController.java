@@ -44,7 +44,7 @@ public class CategoryController {
 
 	@GetMapping("/category/{name}")
 	public ResponseEntity<List<Category>> getByTitle(@PathVariable String name) {
-		return ResponseEntity.ok(categoryRepository.findAllByNomeContainingIgnoreCase(name));
+		return ResponseEntity.ok(categoryRepository.findAllByNameContainingIgnoreCase(name));
 	}
 
 	@PostMapping

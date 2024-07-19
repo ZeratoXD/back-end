@@ -33,7 +33,7 @@ public class UserService {
 		if (userRepository.findByEmail(user.getEmail()).isPresent())
 			return Optional.empty();
 
-		user.setSenha(criptografarSenha(user.getSenha()));
+		user.setPassword(criptografarSenha(user.getPassword()));
 
 		return Optional.of(userRepository.save(user));
 
@@ -48,7 +48,7 @@ public class UserService {
 			if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != user.getId()))
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists!", null);
 
-			user.setSenha(criptografarSenha(user.getSenha()));
+			user.setPassword(criptografarSenha(user.getPassword()));
 
 			return Optional.ofNullable(userRepository.save(user));
 
@@ -72,10 +72,10 @@ public class UserService {
 			if (user.isPresent()) {
 
 				userLogin.get().setId(user.get().getId());
-				userLogin.get().setName(user.get().getNome());
+				userLogin.get().setName(user.get().getName());
 				userLogin.get().setEmail(user.get().getEmail());
-				userLogin.get().setPhoto(user.get().getFoto());
-				userLogin.get().setType(user.get().getTipo());
+				userLogin.get().setPhoto(user.get().getPhoto());
+				userLogin.get().setType(user.get().getType());
 				userLogin.get().setToken(gerarToken(userLogin.get().getEmail()));
 				userLogin.get().setPassword("");
 
