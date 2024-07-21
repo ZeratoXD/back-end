@@ -46,7 +46,7 @@ public class UserController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@PostMapping("/logar")
+	@PostMapping("/login")
 	public ResponseEntity<UserLogin> autenticarUsuario(@RequestBody Optional<UserLogin> userLogin) {
 
 		return userService.autenticarUsuario(userLogin)
@@ -54,7 +54,7 @@ public class UserController {
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 
-	@PostMapping("/cadastrar")
+	@PostMapping("/register")
 	public ResponseEntity<User> postUsuario(@RequestBody @Valid User user) {
 
 		return userService.cadastrarUsuario(user)
@@ -63,7 +63,7 @@ public class UserController {
 
 	}
 
-	@PutMapping("/atualizar")
+	@PutMapping("/update")
 	public ResponseEntity<User> putUsuario(@Valid @RequestBody User user) {
 
 		return userService.atualizarUsuario(user)

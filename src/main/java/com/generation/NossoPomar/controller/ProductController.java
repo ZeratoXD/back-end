@@ -46,7 +46,7 @@ public class ProductController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@GetMapping("/produto/{name}")
+	@GetMapping("/product/{name}")
 	public ResponseEntity<List<Product>> getById(@PathVariable String name) {
 		return ResponseEntity.ok(productRepository.findAllByNameContainingIgnoreCase(name));
 	}

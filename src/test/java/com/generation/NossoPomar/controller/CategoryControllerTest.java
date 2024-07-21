@@ -44,8 +44,8 @@ class CategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/categories")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].nome", is("Frutas")))
-                .andExpect(jsonPath("$[1].nome", is("Legumes")))
+                .andExpect(jsonPath("$[0].name", is("Fruits")))
+                .andExpect(jsonPath("$[1].name", is("Vegetables")))
                 .andDo(print());
     }
 
@@ -58,7 +58,7 @@ class CategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/categories/{id}", category.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", is("Frutas")))
+                .andExpect(jsonPath("$.name", is("Fruits")))
                 .andDo(print());
     }
 
@@ -80,20 +80,20 @@ class CategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/categories/category/{name}", "frutas")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].nome", is("Frutas")))
+                .andExpect(jsonPath("$[0].name", is("Fruits")))
                 .andDo(print());
     }
 
     @Test
     @DisplayName("Teste para criar uma nova categoria")
     void testCreateCategory() throws Exception {
-        String newCategory = "{\"nome\":\"Verduras\"}";
+        String newCategory = "{\"name\":\"Verduras\"}";
 
         mockMvc.perform(MockMvcRequestBuilders.post("/categories")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newCategory))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.nome", is("Verduras")))
+                .andExpect(jsonPath("$.name", is("Vegetables")))
                 .andDo(print());
     }
 
@@ -102,13 +102,13 @@ class CategoryControllerTest {
     void testUpdateCategory() throws Exception {
         Category category = new Category();
         categoryRepository.save(category);
-        String updatedCategory = "{\"id\":" + category.getId() + ", \"nome\":\"Legumes\"}";
+        String updatedCategory = "{\"id\":" + category.getId() + ", \"name\":\"Vegetables\"}";
 
         mockMvc.perform(MockMvcRequestBuilders.put("/categories")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updatedCategory))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.nome", is("Legumes")))
+                .andExpect(jsonPath("$.name", is("Vegetables")))
                 .andDo(print());
     }
 

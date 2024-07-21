@@ -32,7 +32,7 @@ public class User {
 	@Size(min = 8, message = "Tamanho minimo: 8")
 	private String password;
 
-	@NotBlank(message="O campo tipo do usuário é Obrigatório")
+	@NotBlank(message = "O campo tipo do usuário é Obrigatório")
 	private String type;
 
 	@NotBlank(message = "O atributo Email é Obrigatório")
@@ -42,7 +42,6 @@ public class User {
 
 	@Size(min = 2, max = 10000, message = "Tamanho minimo: 2, maximo: 1000")
 	private String photo;
-	
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("user")
@@ -55,6 +54,21 @@ public class User {
 	public void setProduto(List<Product> product) {
 		this.product = product;
 	}
+
+	public User(Long id, String name, String password, String type, String email, String photo) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.type = type;
+		this.email = email;
+		this.photo = photo;
+
+	}
+
+	public User() {
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -111,5 +125,4 @@ public class User {
 		this.product = product;
 	}
 
-	
 }
