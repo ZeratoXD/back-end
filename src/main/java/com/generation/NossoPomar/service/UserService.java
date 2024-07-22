@@ -11,101 +11,94 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.generation.NossoPomar.model.UserLogin;
 import com.generation.NossoPomar.model.User;
+import com.generation.NossoPomar.model.UserLogin;
 import com.generation.NossoPomar.repository.UserRepository;
 import com.generation.NossoPomar.security.JwtService;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository usuarioRepository;
 
-    @Autowired
-    private JwtService jwtService;
+	@Autowired
+	private JwtService jwtService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    // Método para cadastrar um novo usuário
-    public Optional<User> cadastrarUsuario(User user) {
+	public Optional<User> cadastrarUsuario(User usuario) {
 
-        // Verifica se o email já está registrado
-        if (userRepository.findByEmail(user.getEmail()).isPresent())
-            return Optional.empty();
+		if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent())
+			return Optional.empty();
 
-        // Criptografa a senha do usuário
-        user.setPassword(criptografarSenha(user.getPassword()));
+		usuario.setPassword(criptografarSenha(usuario.getPassword()));
 
-        // Salva o usuário no repositório
-        return Optional.of(userRepository.save(user));
-    }
+		return Optional.of(usuarioRepository.save(usuario));
 
-    // Método para atualizar os dados de um usuário existente
-    public Optional<User> atualizarUsuario(User user) {
+	}
 
-        // Verifica se o usuário existe pelo ID
-        if (userRepository.findById(user.getId()).isPresent()) {
+	public Optional<User> atualizarUsuario(User usuario) {
 
-            // Verifica se o email já está em uso por outro usuário
-            Optional<User> buscaUsuario = userRepository.findByEmail(user.getEmail());
+		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
 
-            if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != user.getId()))
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists!", null);
+			Optional<User> buscaUsuario = usuarioRepository.findByEmail(usuario.getEmail());
 
-            // Criptografa a nova senha do usuário
-            user.setPassword(criptografarSenha(user.getPassword()));
+			if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != usuario.getId()))
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 
-            // Salva as atualizações do usuário no repositório
-            return Optional.ofNullable(userRepository.save(user));
-        }
+			usuario.setPassword(criptografarSenha(usuario.getPassword()));
 
-        return Optional.empty();
-    }
+			return Optional.ofNullable(usuarioRepository.save(usuario));
 
-    // Método para autenticar um usuário
-    public Optional<UserLogin> autenticarUsuario(Optional<UserLogin> userLogin) {
+		}
 
-        // Cria um token de autenticação com o email e senha fornecidos
-        var credenciais = new UsernamePasswordAuthenticationToken(userLogin.get().getEmail(),
-                userLogin.get().getPassword());
+		return Optional.empty();
 
-        // Autentica as credenciais do usuário
-        Authentication authentication = authenticationManager.authenticate(credenciais);
+	}
 
-        // Se a autenticação for bem-sucedida
-        if (authentication.isAuthenticated()) {
+	public Optional<UserLogin> autenticarUsuario(Optional<UserLogin> usuarioLogin) {
 
-            // Busca o usuário pelo email
-            Optional<User> user = userRepository.findByEmail(userLogin.get().getEmail());
+		var credenciais = new UsernamePasswordAuthenticationToken(usuarioLogin.get().getEmail(),
+				usuarioLogin.get().getPassword());
 
-            if (user.isPresent()) {
+		Authentication authentication = authenticationManager.authenticate(credenciais);
 
-                // Define os dados do usuário no objeto UserLogin
-                userLogin.get().setId(user.get().getId());
-                userLogin.get().setName(user.get().getName());
-                userLogin.get().setEmail(user.get().getEmail());
-                userLogin.get().setPhoto(user.get().getPhoto());
-                userLogin.get().setType(user.get().getType());
-                userLogin.get().setToken(gerarToken(userLogin.get().getEmail()));
-                userLogin.get().setPassword("");
+		if (authentication.isAuthenticated()) {
 
-                return userLogin;
-            }
-        }
+			Optional<User> usuario = usuarioRepository.findByEmail(usuarioLogin.get().getEmail());
 
-        return Optional.empty();
-    }
+			if (usuario.isPresent()) {
 
-    // Método privado para criptografar a senha do usuário
-    private String criptografarSenha(String password) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.encode(password);
-    }
+				usuarioLogin.get().setId(usuario.get().getId());
+				usuarioLogin.get().setName(usuario.get().getName());
+				usuarioLogin.get().setEmail(usuario.get().getEmail());
+				usuarioLogin.get().setPhoto(usuario.get().getPhoto());
+				usuarioLogin.get().setType(usuario.get().getType());
+				usuarioLogin.get().setToken(gerarToken(usuarioLogin.get().getEmail()));
+				usuarioLogin.get().setPassword("");
 
-    // Método privado para gerar um token JWT para o usuário
-    private String gerarToken(String user) {
-        return "Bearer " + jwtService.generateToken(user);
-    }
+				return usuarioLogin;
+
+			}
+
+		}
+
+		return Optional.empty();
+
+	}
+
+	private String criptografarSenha(String senha) {
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		return encoder.encode(senha);
+
+	}
+
+	private String gerarToken(String usuario) {
+		return "Bearer " + jwtService.generateToken(usuario);
+	}
+
 }

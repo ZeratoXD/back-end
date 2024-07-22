@@ -10,61 +10,55 @@ import com.generation.NossoPomar.model.User;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String userName;
-    private String password;
-    private List<GrantedAuthority> authorities;
+	private String userName;
+	private String password;
+	private List<GrantedAuthority> authorities;
 
-    // Construtor que inicializa os campos userName e password a partir de um objeto User
-    public UserDetailsImpl(User user) {
-        this.userName = user.getEmail();
-        this.password = user.getPassword();
-    }
+	public UserDetailsImpl(User user) {
+		this.userName = user.getEmail();
+		this.password = user.getPassword();
+	}
 
-    // Construtor padrão
-    public UserDetailsImpl() { }
+	public UserDetailsImpl() {	}
 
-    // Retorna as autoridades concedidas ao usuário
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
 
-    // Retorna a senha do usuário
-    @Override
-    public String getPassword() {
-        return password;
-    }
+		return authorities;
+	}
 
-    // Retorna o nome de usuário (email) do usuário
-    @Override
-    public String getUsername() {
-        return userName;
-    }
+	@Override
+	public String getPassword() {
 
-    // Indica se a conta do usuário não está expirada
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+		return password;
+	}
 
-    // Indica se a conta do usuário não está bloqueada
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public String getUsername() {
 
-    // Indica se as credenciais do usuário (senha) não estão expiradas
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+		return userName;
+	}
 
-    // Indica se a conta do usuário está habilitada
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
 }

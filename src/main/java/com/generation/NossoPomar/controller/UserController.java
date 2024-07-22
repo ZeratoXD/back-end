@@ -56,7 +56,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<User> postUsuario(@RequestBody @Valid User user) {
-
+  System.out.println("User: " + user.toString());
 		return userService.cadastrarUsuario(user)
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
