@@ -10,55 +10,61 @@ import com.generation.NossoPomar.model.User;
 
 public class UserDetailsImpl implements UserDetails {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String userName;
-	private String password;
-	private List<GrantedAuthority> authorities;
+    private String userName;
+    private String password;
+    private List<GrantedAuthority> authorities;
 
-	public UserDetailsImpl(User user) {
-		this.userName = user.getEmail();
-		this.password = user.getPassword();
-	}
+    // Construtor que inicializa os campos userName e password a partir de um objeto User
+    public UserDetailsImpl(User user) {
+        this.userName = user.getEmail();
+        this.password = user.getPassword();
+    }
 
-	public UserDetailsImpl() {	}
+    // Construtor padrão
+    public UserDetailsImpl() { }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+    // Retorna as autoridades concedidas ao usuário
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-		return authorities;
-	}
+    // Retorna a senha do usuário
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public String getPassword() {
+    // Retorna o nome de usuário (email) do usuário
+    @Override
+    public String getUsername() {
+        return userName;
+    }
 
-		return password;
-	}
+    // Indica se a conta do usuário não está expirada
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public String getUsername() {
+    // Indica se a conta do usuário não está bloqueada
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-		return userName;
-	}
+    // Indica se as credenciais do usuário (senha) não estão expiradas
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    // Indica se a conta do usuário está habilitada
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

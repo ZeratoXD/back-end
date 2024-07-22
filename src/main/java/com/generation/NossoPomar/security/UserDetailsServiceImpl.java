@@ -16,18 +16,21 @@ import com.generation.NossoPomar.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    // Carrega o usuário pelo email (nome de usuário)
+    @Override
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 
-		Optional<User> user = userRepository.findByEmail(userEmail);
+        // Busca o usuário no repositório pelo email
+        Optional<User> user = userRepository.findByEmail(userEmail);
 
-		if (user.isPresent())
-			return new UserDetailsImpl(user.get());
-		else
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-
-	}
+        // Se o usuário for encontrado, retorna uma nova instância de UserDetailsImpl
+        if (user.isPresent())
+            return new UserDetailsImpl(user.get());
+        else
+            // Se o usuário não for encontrado, lança uma exceção com status FORBIDDEN
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
 }
