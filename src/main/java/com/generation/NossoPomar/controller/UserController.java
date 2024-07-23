@@ -15,58 +15,57 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.NossoPomar.model.UsuarioLogin;
-import com.generation.NossoPomar.model.Usuario;
-import com.generation.NossoPomar.repository.UsuarioRepository;
+import com.generation.NossoPomar.dto.UserLogin;
+import com.generation.NossoPomar.model.User;
+import com.generation.NossoPomar.repository.UserRepository;
 import com.generation.NossoPomar.service.UserService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/usuarios")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UsuarioController {
+@RequestMapping("/users")
+public class UserController {
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UserRepository userRepository;
 
 	@GetMapping("/all")
-	public ResponseEntity<List<Usuario>> getAll() {
+	public ResponseEntity<List<User>> getAll() {
 
-		return ResponseEntity.ok(usuarioRepository.findAll());
+		return ResponseEntity.ok(userRepository.findAll());
 
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
-		return usuarioRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
+	public ResponseEntity<User> getById(@PathVariable Long id) {
+		return userRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@PostMapping("/logar")
-	public ResponseEntity<UsuarioLogin> autenticarUsuario(@RequestBody Optional<UsuarioLogin> usuarioLogin) {
+	@PostMapping("/login")
+	public ResponseEntity<UserLogin> autenticarUsuario(@RequestBody Optional<UserLogin> userLogin) {
 
-		return userService.autenticarUsuario(usuarioLogin)
-				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
-				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+		return null;
 	}
 
-	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) {
-
-		return userService.cadastrarUsuario(usuario)
+	@PostMapping("/register")
+	public ResponseEntity<User> postUsuario(@RequestBody @Valid User user) {
+		
+		System.out.println("Objeto do Controller: " + user.toString());
+  
+		return userService.cadastrarUsuario(user)
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 
 	}
 
-	@PutMapping("/atualizar")
-	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
+	@PutMapping("/update")
+	public ResponseEntity<User> putUsuario(@Valid @RequestBody User user) {
 
-		return userService.atualizarUsuario(usuario)
+		return userService.atualizarUsuario(user)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 
