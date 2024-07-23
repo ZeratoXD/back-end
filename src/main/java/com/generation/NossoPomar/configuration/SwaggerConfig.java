@@ -43,14 +43,14 @@ public class SwaggerConfig {
 						
 						ApiResponses apiResponses = operation.getResponses();
 						
-						apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
-						apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!!"));
-						apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!!"));
-						apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
-						apiResponses.addApiResponse("401", createApiResponse("Acesso não autorizado!"));
-						apiResponses.addApiResponse("403", createApiResponse("Acesso Proibido!"));
-						apiResponses.addApiResponse("404", createApiResponse("Objeto não encontrado!"));
-						apiResponses.addApiResponse("500", createApiResponse("Erro na aplicação!"));
+						apiResponses.addApiResponse("200", createApiResponse("Sucess!"));
+						apiResponses.addApiResponse("201", createApiResponse("Object Persisted!!"));
+						apiResponses.addApiResponse("204", createApiResponse("Object Deleted!!"));
+						apiResponses.addApiResponse("400", createApiResponse("Request Error!"));
+						apiResponses.addApiResponse("401", createApiResponse("Unauthorized access!"));
+						apiResponses.addApiResponse("403", createApiResponse("Access Forbidden!"));
+						apiResponses.addApiResponse("404", createApiResponse("Object not found!"));
+						apiResponses.addApiResponse("500", createApiResponse("Application error!"));
 				
 					}));			
 		};
