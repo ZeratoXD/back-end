@@ -11,10 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.generation.NossoPomar.dto.UserLogin;
 import com.generation.NossoPomar.model.User;
-import com.generation.NossoPomar.model.UserLogin;
 import com.generation.NossoPomar.repository.UserRepository;
-import com.generation.NossoPomar.security.JwtService;
+import com.generation.NossoPomar.security.JwtAuthFilter;
+import com.generation.NossoPomar.security.PomarToken;
+import com.generation.NossoPomar.security.TokenUtil;
 
 @Service
 public class UserService {
@@ -22,11 +24,9 @@ public class UserService {
 	@Autowired
 	private UserRepository usuarioRepository;
 
-	@Autowired
-	private JwtService jwtService;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	/*@Autowired
+	private AuthenticationManager authenticationManager;*/
 
 	public Optional<User> cadastrarUsuario(User usuario) {
 
@@ -58,35 +58,25 @@ public class UserService {
 
 	}
 
-	public Optional<UserLogin> autenticarUsuario(Optional<UserLogin> usuarioLogin) {
-
-		var credenciais = new UsernamePasswordAuthenticationToken(usuarioLogin.get().getEmail(),
-				usuarioLogin.get().getPassword());
-
-		Authentication authentication = authenticationManager.authenticate(credenciais);
-
-		if (authentication.isAuthenticated()) {
-
-			Optional<User> usuario = usuarioRepository.findByEmail(usuarioLogin.get().getEmail());
-
-			if (usuario.isPresent()) {
-
-				usuarioLogin.get().setId(usuario.get().getId());
-				usuarioLogin.get().setName(usuario.get().getName());
-				usuarioLogin.get().setEmail(usuario.get().getEmail());
-				usuarioLogin.get().setPhoto(usuario.get().getPhoto());
-				usuarioLogin.get().setType(usuario.get().getType());
-				usuarioLogin.get().setToken(gerarToken(usuarioLogin.get().getEmail()));
-				usuarioLogin.get().setPassword("");
-
-				return usuarioLogin;
-
+	public PomarToken autenticarUsuario(UserLogin data) {
+		
+		Optional<User> res = usuarioRepository.findByEmail(data.getEmail());
+		
+		if(res.isPresent()) {
+			
+			User existingUser = res.get();
+			
+			BCryptPasswordEncoder verifyPass = new BCryptPasswordEncoder();
+						
+			if(verifyPass.matches(data.getPassword(), existingUser.getPassword())) {
+				PomarToken token = TokenUtil.encode(existingUser);
+				return token;
 			}
-
+			System.err.println("Senha Incorreta. Verfique as informações e tente novamente.");
 		}
-
-		return Optional.empty();
-
+		
+		System.err.println("Usuário não existe no banco de dados");
+		return null;		
 	}
 
 	private String criptografarSenha(String senha) {
@@ -96,9 +86,6 @@ public class UserService {
 		return encoder.encode(senha);
 
 	}
-
-	private String gerarToken(String usuario) {
-		return "Bearer " + jwtService.generateToken(usuario);
-	}
-
+	
+	
 }

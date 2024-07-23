@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.NossoPomar.model.UserLogin;
+import com.generation.NossoPomar.dto.UserLogin;
 import com.generation.NossoPomar.model.User;
 import com.generation.NossoPomar.repository.UserRepository;
 import com.generation.NossoPomar.service.UserService;
@@ -24,7 +24,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
 	@Autowired
@@ -49,14 +48,14 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<UserLogin> autenticarUsuario(@RequestBody Optional<UserLogin> userLogin) {
 
-		return userService.autenticarUsuario(userLogin)
-				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
-				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+		return null;
 	}
 
 	@PostMapping("/register")
 	public ResponseEntity<User> postUsuario(@RequestBody @Valid User user) {
-  System.out.println("User: " + user.toString());
+		
+		System.out.println("Objeto do Controller: " + user.toString());
+  
 		return userService.cadastrarUsuario(user)
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
